@@ -13,10 +13,27 @@ function QALoadingAnimation() {
   }, [])
 
   return (
-    <div className="flex items-center justify-center bg-white-100 overflow-hidden p-8">
-      <div className="rounded-2xl shadow-lg">
+    <div className="qa-container">
+      <div className="qa-wrapper">
         <QACard key={key} />
       </div>
+      <style jsx>{`
+        .qa-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #fff;
+          overflow: hidden;
+          padding: 32px;
+          max-height: 440px;
+          border-radius: 16px;
+        }
+        
+        .qa-wrapper {
+          border-radius: 16px;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+      `}</style>
     </div>
   )
 }
@@ -83,8 +100,8 @@ function QACard() {
   const explanation2WidthsByLine = explanation2Lines.map((count) => generateWidths(count, 15, 50)) // Slightly different widths
 
   return (
-    <div className="relative w-[300px] h-[400px] animate-fadeOut overflow-hidden">
-      <svg className="absolute w-full h-full" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+    <div className="qa-card">
+      <svg className="qa-card-svg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
         <rect
           x="1"
           y="1"
@@ -102,13 +119,13 @@ function QACard() {
         </rect>
       </svg>
 
-      <div className="absolute inset-0 p-8 flex flex-col gap-6">
+      <div className="qa-card-content">
         {/* Fpid section */}
-        <div className="flex flex-col gap-0 pb-2">
-          <div className="flex items-center gap-1">
+        <div className="fpid-section">
+          <div className="fpid-row">
             <div
               style={{
-                width: "7%",
+                width: "10%",
                 height: "8px",
                 backgroundColor: "#C3C9D2",
                 borderRadius: "6px",
@@ -118,7 +135,7 @@ function QACard() {
                 animationDelay: `${delay}s`,
               }}
             />
-            <div className="flex gap-1 items-center flex-1">
+            <div className="fpid-segments">
               {headerWidths.map((width, i) => {
                 delay += 0.2
                 return (
@@ -142,10 +159,10 @@ function QACard() {
         </div>
 
         {/* First Question Block*/}
-        <div className="flex flex-col gap-0">
+        <div className="question-block">
           {/* Question 1 */}
-          <div className="flex items-center gap-0">
-            <div className="flex gap-x-1 gap-y-0 items-center flex-1">
+          <div className="question-row">
+            <div className="question-segments">
               {question1Widths.map((width, i) => {
                 delay += 0.2
                 return (
@@ -170,7 +187,7 @@ function QACard() {
                   animation: `fadeIn 0.3s ease forwards`,
                   animationDelay: `${delay + 0.3}s`,
                 }}
-                className="ml-0 text-[#C3C9D2] text-xs leading-none font-bold"
+                className="question-mark"
               >
                 ?
               </div>
@@ -178,8 +195,8 @@ function QACard() {
           </div>
 
           {/* Answer 1 */}
-          <div className="flex items-center gap-0 pb-3">
-            <div className="flex gap-x-1 gap-y-0 items-baseline flex-1">
+          <div className="answer-row">
+            <div className="answer-segments">
               {answer1Widths.map((width, i) => {
                 delay += 0.5
                 return (
@@ -204,7 +221,7 @@ function QACard() {
                   animation: `fadeIn 0.3s ease forwards`,
                   animationDelay: `${delay + 0.3}s`,
                 }}
-                className="ml-0 text-[#A9B1BF] text-xs leading-none font-bold"
+                className="answer-period"
               >
                 .
               </div>
@@ -212,7 +229,7 @@ function QACard() {
           </div>
 
           {/* Explanation 1 */}
-          <div className="flex flex-col gap-2">
+          <div className="explanation-section">
             <div
               style={{
                 width: "20%",
@@ -228,7 +245,7 @@ function QACard() {
 
             {explanation1WidthsByLine.map((lineWidths, lineIndex) => {
               return (
-                <div key={`exp1-${lineIndex}`} className="flex gap-2">
+                <div key={`exp1-${lineIndex}`} className="explanation-row">
                   {lineWidths.map((width, i) => {
                     delay += 0.5
                     return (
@@ -254,10 +271,10 @@ function QACard() {
         </div>
 
         {/* Question Block 2 */}
-        <div className="flex flex-col gap-0 pt-2">
+        <div className="question-block question-block-2">
           {/* Question 2 */}
-          <div className="flex items-center gap-0">
-            <div className="flex gap-x-1 gap-y-0 items-center flex-1">
+          <div className="question-row">
+            <div className="question-segments">
               {question2Widths.map((width, i) => {
                 delay += 0.2
                 return (
@@ -282,7 +299,7 @@ function QACard() {
                   animation: `fadeIn 0.3s ease forwards`,
                   animationDelay: `${delay + 0.3}s`,
                 }}
-                className="ml-0 mb-0 text-[#C3C9D2] text-xs leading-none font-bold"
+                className="question-mark"
               >
                 ?
               </div>
@@ -290,8 +307,8 @@ function QACard() {
           </div>
 
           {/* Answer 2 */}
-          <div className="flex items-center gap-0 pb-3">
-            <div className="flex gap-x-1 gap-y-0 items-baseline flex-1">
+          <div className="answer-row">
+            <div className="answer-segments">
               {answer2Widths.map((width, i) => {
                 delay += 0.5
                 return (
@@ -316,7 +333,7 @@ function QACard() {
                   animation: `fadeIn 0.3s ease forwards`,
                   animationDelay: `${delay + 0.3}s`,
                 }}
-                className="ml-0 mt-0 text-[#A9B1BF] text-xs leading-none font-bold"
+                className="answer-period"
               >
                 .
               </div>
@@ -324,7 +341,7 @@ function QACard() {
           </div>
 
           {/* Explanation 2 */}
-          <div className="flex flex-col gap-2">
+          <div className="explanation-section">
             <div
               style={{
                 width: "20%",
@@ -340,7 +357,7 @@ function QACard() {
 
             {explanation2WidthsByLine.map((lineWidths, lineIndex) => {
               return (
-                <div key={`exp2-${lineIndex}`} className="flex gap-2">
+                <div key={`exp2-${lineIndex}`} className="explanation-row">
                   {lineWidths.map((width, i) => {
                     delay += 0.5
                     return (
@@ -367,6 +384,113 @@ function QACard() {
       </div>
 
       <style jsx>{`
+        .qa-card {
+          position: relative;
+          width: 300px;
+          height: 400px;
+          animation: slideOut 16s ease-in-out forwards;
+          animation-fill-mode: forwards;
+          overflow: hidden;
+        }
+
+        .qa-card-svg {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+
+        .qa-card-content {
+          position: absolute;
+          inset: 0;
+          padding: 32px;
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+        }
+
+        .fpid-section {
+          display: flex;
+          gap: 4px;
+          padding-bottom: 0;
+          flex-direction: column;
+        }
+
+        .fpid-row {
+          display: flex;
+          gap: 8px;
+        }
+
+        .fpid-segments {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          flex: 1;
+        }
+
+        .question-block {
+          display: flex;
+          flex-direction: column;
+          gap: 0px;
+        }
+
+        .question-block-2 {
+          padding-top: 8px;
+        }
+
+        .question-row {
+          display: flex;
+          align-items: center;
+          gap: 0px 4px;
+        }
+
+        .question-segments {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          flex: 1;
+        }
+
+        .question-mark {
+          margin-left: 4px;
+          color: #C3C9D2;
+          font-size: 0.75rem;
+          line-height: 1;
+          font-weight: 700;
+        }
+
+        .answer-row {
+          display: flex;
+          align-items: center;
+          gap: 0px 4px;
+          padding-bottom: 12px;
+        }
+
+        .answer-segments {
+          display: flex;
+          gap: 8px;
+          align-items: baseline;
+          flex: 1;
+        }
+
+        .answer-period {
+          margin-left: 4px;
+          color: #A9B1BF;
+          font-size: 0.75rem;
+          line-height: 1;
+          font-weight: 700;
+        }
+
+        .explanation-section {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .explanation-row {
+          display: flex;
+          gap: 8px;
+        }
+
         @keyframes highlightLine {
           to {
             transform: scaleX(1);
@@ -399,11 +523,6 @@ function QACard() {
             transform: translateY(500px);
             opacity: 0;
           }
-        }
-
-        .animate-fadeOut {
-          animation: slideOut 16s ease-in-out forwards;
-          animation-fill-mode: forwards;
         }
       `}</style>
     </div>

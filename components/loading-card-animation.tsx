@@ -26,10 +26,27 @@ function LoadingCardAnimation() {
   }, [])
 
   return (
-    <div className="flex items-center justify-center bg-white-100 overflow-hidden p-8">
-      <div className="rounded-2xl shadow-lg">
+    <div className="loading-container">
+      <div className="card-wrapper">
         <Card key={key} />
       </div>
+      <style jsx>{`
+        .loading-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #fff;
+          overflow: hidden;
+          padding: 32px;
+          max-height: 440px;
+          border-radius: 16px;
+        }
+        
+        .card-wrapper {
+          border-radius: 16px;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+      `}</style>
     </div>
   )
 }
@@ -47,8 +64,8 @@ function Card() {
   }
 
   return (
-    <div className="relative w-[300px] h-[400px] animate-fadeOut ">
-      <svg className="absolute w-full h-full" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+    <div className="card">
+      <svg className="card-svg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
         <rect
           x="1"
           y="1"
@@ -66,10 +83,10 @@ function Card() {
         </rect>
       </svg>
 
-      <div className="absolute inset-0 p-6 flex flex-col gap-3">
+      <div className="card-content">
         {/* Title line */}
-        <div className="flex justify-center">
-          <div className="flex gap-2 w-[55%]">
+        <div className="title-container">
+          <div className="title-segments">
             {Array.from({ length: Math.floor(Math.random() * 3) + 1 }).map((_, i) => {
               // Calculate width for each segment to total ~55% with gaps
               const segmentCount = Math.floor(Math.random() * 3) + 1
@@ -96,14 +113,14 @@ function Card() {
         </div>
 
         {ROW_PATTERNS.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex gap-2">
+          <div key={rowIndex} className="row">
             {row.map((width, i) => {
               delay += 0.3
               const isGreen = greenSegments.some((segment) => segment.row === rowIndex && segment.line === i)
               return (
                 <div
                   key={i}
-                  className="opacity-100"
+                  className="segment"
                   style={{
                     height: "4px",
                     width,
@@ -111,7 +128,7 @@ function Card() {
                     borderRadius: "6px",
                     transform: "scaleX(0)",
                     transformOrigin: "left",
-                    animation: ` highlightLine 0.54s ease forwards ${delay}s`,
+                    animation: `highlightLine 0.54s ease forwards ${delay}s`,
                   }}
                 />
               )
@@ -121,6 +138,49 @@ function Card() {
       </div>
 
       <style jsx>{`
+        .card {
+          position: relative;
+          width: 300px;
+          height: 400px;
+          animation: slideOut 16s ease-in-out forwards;
+          animation-fill-mode: forwards;
+        }
+
+        .card-svg {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+
+        .card-content {
+          position: absolute;
+          inset: 0;
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .title-container {
+          display: flex;
+          justify-content: center;
+        }
+
+        .title-segments {
+          display: flex;
+          gap: 8px;
+          width: 55%;
+        }
+
+        .row {
+          display: flex;
+          gap: 8px;
+        }
+
+        .segment {
+          opacity: 1;
+        }
+
         @keyframes highlightLine {
           to {
             transform: scaleX(1);
@@ -147,11 +207,6 @@ function Card() {
             transform: translateY(500px);
             opacity: 0;
           }
-        }
-
-        .animate-fadeOut {
-          animation: slideOut 16s ease-in-out forwards;
-          animation-fill-mode: forwards;
         }
       `}</style>
     </div>

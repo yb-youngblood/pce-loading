@@ -1,15 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body {
   font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  margin: 0;
+  padding: 0;
 }
 
 @keyframes highlightLine {
@@ -44,9 +36,4 @@ body {
     transform: translateY(500px);
     opacity: 0;
   }
-}
-
-.animate-fadeOut {
-  animation: slideOut 16s ease-in-out forwards;
-  animation-fill-mode: forwards;
 }
