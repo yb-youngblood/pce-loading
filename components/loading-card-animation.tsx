@@ -39,12 +39,33 @@ function LoadingCardAnimation() {
           overflow: hidden;
           padding: 32px;
           max-height: 440px;
-          border-radius: 16px;
+          border-radius: 0px;
         }
         
         .card-wrapper {
           border-radius: 16px;
           box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+          animation: growShrinkWrapper 16s ease-out forwards infinite ;
+          transform: scale(1);
+        }
+        
+        @keyframes growShrinkWrapper {
+          0% {
+            transform: scale(0.9);
+          }
+          5% {
+            transform: scale(1);
+          }
+          95% {
+            transform: scale(1);
+          }
+          97% {
+            transform: scale(0.9);
+          }
+
+          100% {
+            transform: scale(0.8999);
+          }
         }
       `}</style>
     </div>
@@ -74,12 +95,13 @@ function Card() {
           rx="16"
           ry="16"
           fill="white"
+          fillOpacity="100%"
           strokeDasharray="2000"
           strokeDashoffset="2000"
-          stroke="#5051DB"
+          stroke="#DDE0E5"
           strokeWidth="2"
         >
-          <animate attributeName="stroke-dashoffset" from="2000" to="0" dur="2.5s" fill="freeze" />
+          <animate attributeName="stroke-dashoffset" from="2000" to="0" begin=".6s" dur="2.0s" fill="freeze" />
         </rect>
       </svg>
 
